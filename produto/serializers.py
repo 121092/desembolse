@@ -5,7 +5,18 @@ from produto.models import Produtos
 class ProdutosSerializer(ModelSerializer):
     class Meta:
         model = Produtos
-        fields = ["id", "nome", "valor"]
+        fields = ["id", "nome", "valor", "disponivel"]
+    
+    
+    def create(self, validated_data):
+        produto = Produtos(
+            nome=validated_data["nome"], 
+            valor=validated_data["valor"], 
+            disponivel=validated_data["disponivel"]
+        )
+        produto.save()
+        return produto
+
 
 #Se comecar com a letra maiusca retornar nome, caso nao retorna falso
 #Verificar se o nome ja existe, caso nao, que retorne falso
